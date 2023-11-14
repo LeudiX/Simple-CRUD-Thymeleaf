@@ -1,13 +1,17 @@
+
+/** 
+* !Animated timed notifications
+*/
 function showName(name) {
     const message = document.getElementById('showN');
-    // alert(name);
-    message.classList.add("timednotific");
-    message.style.display = 'block';
+    // showing message with styles
+    message.classList.add("timednotif");
     message.innerHTML = 'Welcome back again ' + name;
+    message.style.visibility = 'visible';
     
     setTimeout(() => {
-        message.classList.remove("timednotific");
-        message.style.display = 'none';
-    }, 3000);
+        message.classList.remove("timednotif");
+        message.style.visibility = 'hidden';
+    }, 8000);
 
 }
