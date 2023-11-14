@@ -33,4 +33,8 @@ public class User implements Serializable {
 
     @NotBlank(message = "Email is mandatory")
     private String email;
+
+    public static Object withDefaultPasswordEncoder() {
+        return null;
+    }
 }

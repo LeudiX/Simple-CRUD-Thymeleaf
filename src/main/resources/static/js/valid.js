@@ -6,7 +6,7 @@ function showName(name) {
     const message = document.getElementById('showN');
     // showing message with styles
     message.classList.add("timednotif");
-    message.innerHTML = 'Welcome back again ' + name;
+    message.innerHTML = 'Welcome back ' + name;
     message.style.visibility = 'visible';
     
     setTimeout(() => {
