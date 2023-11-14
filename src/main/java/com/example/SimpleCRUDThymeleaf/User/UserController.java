@@ -1,23 +1,30 @@
 package com.example.SimpleCRUDThymeleaf.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+
 
 @Controller
 public class UserController {
 
     private final UserRepository userRepository;
 
-    @Autowired
+    
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+    @RequestMapping("/login")
+    public String showLoginForm(Model model1, Model model2) {
+        model1.addAttribute("name1", "LeudiX");
+        model2.addAttribute("name2", "Customer Service Attention Web App");
+        return "login";
     }
 
     @GetMapping("/index")
