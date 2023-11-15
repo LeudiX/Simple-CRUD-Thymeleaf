@@ -7,8 +7,10 @@ Simple users management CRUD project with Spring Boot, Thymeleaf and H2 database
 
 ->Download Maven(3.8.x or later). Configure it in your machine and VSCode.
 
-->VSCode with extensions for Java, Maven, SpringBoot etc.
+->Install extensions for Java, Maven, SpringBoot etc in VSCode.
 
-->Internet, yes you need Internet :)
+->Type mvn install or mvn package
+
+-> Run with mvn spring-boot:run
 
 # Good Luck. Please be patient. Everything is going to be fine!!!
