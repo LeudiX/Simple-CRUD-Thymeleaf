@@ -9,7 +9,7 @@ Simple users management CRUD project with Spring Boot, Thymeleaf and H2 database
 
 ->Install extensions for Java, Maven, SpringBoot etc in VSCode.
 
-->Type mvn install or mvn package
+->In the terminal, type: mvn install or mvn package
 
 -> Run with mvn spring-boot:run
 
