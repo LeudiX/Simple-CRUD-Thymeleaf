@@ -11,44 +11,71 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/index").permitAll()
-                        .anyRequest().authenticated())
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .permitAll())
-                .logout((logout) -> logout.permitAll());
+        @Bean
+        MvcRequestMatcher.Builder mvc(HandlerMappingIntrospector introspector) {
+                return new MvcRequestMatcher.Builder(introspector);
+        }
 
-        return http.build();
-    }
+        /**
+         * ! Defining which URL paths should be secured and which should not. The
+         * defined paths are
+         * ! configured to not require any authentication. All other paths require
+         * authentication.
+         * 
+         * @param http
+         * @return
+         * @throws Exception
+         */
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http, MvcRequestMatcher.Builder mvc)
+                        throws Exception {
+                http
+                                .authorizeHttpRequests((authorize) -> authorize
+                                                .requestMatchers(mvc.pattern("/"))
+                                                .permitAll()
+                                                .requestMatchers(antMatcher("/**/*.css"))
+                                                .permitAll()
+                                                .requestMatchers(antMatcher("/**/*.js"))
+                                                .permitAll()
+                                                .requestMatchers(mvc.pattern("/index"))
+                                                .permitAll()
+                                                .anyRequest().authenticated())
+                                .formLogin((form) -> form
+                                                .loginPage("/login")
+                                                .permitAll())
+                                .logout((logout) -> logout.permitAll());
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user1 = User.withUsername("user1")
-                .password(passwordEncoder().encode("user1Pass"))
-                .roles("USER")
-                .build();
-        UserDetails user2 = User.withUsername("user2")
-                .password(passwordEncoder().encode("user2Pass"))
-                .roles("USER")
-                .build();
-        UserDetails admin = User.withUsername("admin")
-                .password(passwordEncoder().encode("adminPass"))
-                .roles("ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user1, user2, admin);
-    }
+                return http.build();
+        }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public UserDetailsService userDetailsService() {
+                // Defining 3 users with differentes roles, usernames and password
+                UserDetails user1 = User.withUsername("tito")
+                                .password(passwordEncoder().encode("user1Pass"))
+                                .roles("USER")
+                                .build();
+                UserDetails user2 = User.withUsername("rafa")
+                                .password(passwordEncoder().encode("user2Pass"))
+                                .roles("USER")
+                                .build();
+                UserDetails admin = User.withUsername("leudix96")
+                                .password(passwordEncoder().encode("adminPass"))
+                                .roles("ADMIN")
+                                .build();
+                return new InMemoryUserDetailsManager(user1, user2, admin);
+        }
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }

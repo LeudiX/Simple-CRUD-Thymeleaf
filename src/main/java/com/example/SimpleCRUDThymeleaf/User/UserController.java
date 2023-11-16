@@ -20,6 +20,7 @@ public class UserController {
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+    
     @RequestMapping("/login")
     public String showLoginForm(Model model1, Model model2) {
         model1.addAttribute("name1", "LeudiX");
