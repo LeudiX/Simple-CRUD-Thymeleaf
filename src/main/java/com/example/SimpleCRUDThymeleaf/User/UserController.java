@@ -28,6 +28,12 @@ public class UserController {
         return "login";
     }
 
+     @RequestMapping("/")
+    public String showUserList2(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        return "index";
+    }
+
     @GetMapping("/index")
     public String showUserList(Model model) {
         model.addAttribute("users", userRepository.findAll());

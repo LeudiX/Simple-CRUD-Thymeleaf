@@ -41,13 +41,16 @@ public class WebSecurityConfig {
                                 .authorizeHttpRequests((authorize) -> authorize
                                                 .requestMatchers(mvc.pattern("/"))
                                                 .permitAll()
+                                                .requestMatchers(mvc.pattern("/index"))
+                                                .permitAll()
+                                                .requestMatchers(mvc.pattern("/signup"))
+                                                .hasRole("ADMIN")
                                                 .requestMatchers(antMatcher("/**/*.css"))
                                                 .permitAll()
                                                 .requestMatchers(antMatcher("/**/*.js"))
                                                 .permitAll()
-                                                .requestMatchers(mvc.pattern("/index"))
-                                                .permitAll()
                                                 .anyRequest().authenticated())
+                                                
                                 .formLogin((form) -> form
                                                 .loginPage("/login")
                                                 .permitAll())
