@@ -1,0 +1,6 @@
+#footer1,
+#footer2 {
+        bottom: 0;
+        position: fixed;
+        width: 100%;
+}

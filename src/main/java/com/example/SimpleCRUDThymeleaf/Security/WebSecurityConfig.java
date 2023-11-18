@@ -13,6 +13,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
+
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 @Configuration
@@ -50,7 +52,7 @@ public class WebSecurityConfig {
                                                 .requestMatchers(antMatcher("/**/*.js"))
                                                 .permitAll()
                                                 .anyRequest().authenticated())
-                                                
+
                                 .formLogin((form) -> form
                                                 .loginPage("/login")
                                                 .permitAll())
@@ -74,11 +76,18 @@ public class WebSecurityConfig {
                                 .password(passwordEncoder().encode("adminPass"))
                                 .roles("ADMIN")
                                 .build();
-                return new InMemoryUserDetailsManager(user1, user2, admin);
+
+               return new InMemoryUserDetailsManager(user1, user2, admin);
         }
 
-        @Bean
+         @Bean
         public PasswordEncoder passwordEncoder() {
                 return new BCryptPasswordEncoder();
         }
+
+
 }
+
+       
+
+       
